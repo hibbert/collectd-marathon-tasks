@@ -66,8 +66,11 @@ def read_callback():
         tasks = json.load(urllib2.urlopen(request, timeout=10))
         now = datetime.now(pytz.utc)
         for task in tasks.get('tasks'):
-            started = dateutil.parser.parse(task.get('startedAt'))
-            uptimeMs = int((now - started).total_seconds() * 1000)
+            startedAtString = task.get('startedAt')
+            if startedAtString is None:
+                continue
+            startedAtTime = dateutil.parser.parse(startedAtString)
+            uptimeMs = int((now - startedAtTime).total_seconds() * 1000)
             taskId = task.get('id')
             taskId = taskId[taskId.rindex('.')+1:]
             appId = task.get('appId')
