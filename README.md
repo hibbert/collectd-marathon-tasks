@@ -12,13 +12,13 @@ This plugin is inspired by the [Mesos Python plugin](https://github.com/rayrod20
 
 Install
 -------
- 1. Place `marathon_tasks.py` and `marathon_app_instances.py` in /opt/collectd/lib/collectd/plugins/python (assuming you have collectd installed to /opt/collectd).
+ 1. Place `marathon_tasks.py` and `marathon_apps.py` in /opt/collectd/lib/collectd/plugins/python (assuming you have collectd installed to /opt/collectd).
  2. Configure the plugin (see below).
  3. Restart collectd.
 
 Configuration
 -------------
- * See examples `marathon_tasks.conf` and `marathon_app_instances.conf`
+ * See examples `marathon_tasks.conf` and `marathon_apps.conf`
 
 Requirements
 ------------

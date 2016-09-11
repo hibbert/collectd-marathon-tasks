@@ -45,7 +45,7 @@ def configure_callback(conf):
         elif node.key == 'Verbose':
             VERBOSE_LOGGING = bool(node.values[0])
         else:
-            collectd.warning('marathon_app_instances plugin: Unknown config key: %s.' % node.key)
+            collectd.warning('marathon_apps plugin: Unknown config key: %s.' % node.key)
 
     MARATHON_URL = "http://" + MARATHON_HOST + ":" + str(MARATHON_PORT) + "/v2/apps"
 
@@ -71,17 +71,17 @@ def read_callback():
             instances = int(app.get("instances", "0"))
             dispatch_stat(app_id, 'count', task_prefix, instances)
     except requests.exceptions.HTTPError as e:
-        collectd.error('marathon_app_instances plugin: Error connecting to %s - %r' % (MARATHON_URL, e))
+        collectd.error('marathon_apps plugin: Error connecting to %s - %r' % (MARATHON_URL, e))
 
 
 def dispatch_stat(plugin_instance, type, type_instance, value):
     """Read a key from info response data and dispatch a value"""
     if value is None:
-        collectd.warning('marathon_app_instances plugin: Value not found for %s/%s' % (plugin_instance, type_instance))
+        collectd.warning('marathon_apps plugin: Value not found for %s/%s' % (plugin_instance, type_instance))
         return
     log_verbose('Sending value[%s]: %s=%s' % (plugin_instance, type_instance, value))
 
-    val = collectd.Values(plugin='marathon_app_instances')
+    val = collectd.Values(plugin='marathon_apps')
     val.plugin_instance = plugin_instance
     val.type = type
     val.type_instance = type_instance
@@ -94,7 +94,7 @@ def dispatch_stat(plugin_instance, type, type_instance, value):
 def log_verbose(msg):
     if not VERBOSE_LOGGING:
         return
-    collectd.info('marathon_app_instances plugin [verbose]: %s' % msg)
+    collectd.info('marathon_apps plugin [verbose]: %s' % msg)
 
 collectd.register_config(configure_callback)
 collectd.register_read(read_callback)
