@@ -85,7 +85,6 @@ def read_callback():
                 dispatch_metrics["uptime_10m"] = get_running_instances(start_times, 600)
                 dispatch_metrics["uptime_15m"] = get_running_instances(start_times, 900)
                 dispatch_metrics["uptime_30m"] = get_running_instances(start_times, 1800)
-                
 
             dispatch_stat(task_prefix, 'count', dispatch_metrics)
     except requests.exceptions.HTTPError as e:
